@@ -14,8 +14,6 @@ class Floor
     # will default to 5x5
     @height = height
     @width = width
-
-    @grid = Array.new(area)
     
     # Each floor starts empty but can contain objects
     # Only put things in there that have attributes
@@ -23,15 +21,26 @@ class Floor
     @objects = []
   end
 
+  def newThing(thing)
+    @objects << thing
+  end
+
   private
 
+  #The following function is responsible for drawing the grid, nothing else
   def to_s
-    str = ''
-    area.times do |i|
-      str << "\n" if i % width == 0
-      str << ( @grid[i] || "." )
+    grid = Array.new(area)
+    @objects.each do |thing|
+      coord = thing.x + thing.y * width
+      grid[coord] = thing.char
     end
-    str
+
+    str = '|' + '-'*width
+    area.times do |i|
+      str << "|\n|" if i % width == 0
+      str << ( grid[i] || " " )
+    end
+    str << "|\n|" + "-"*width + "|\n"
   end
 
 end
