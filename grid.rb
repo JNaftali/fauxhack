@@ -35,6 +35,3 @@ class Floor
   end
 
 end
-
-hack = Floor.new(5,5)
-puts hack
